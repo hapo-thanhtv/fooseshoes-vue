@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Fooseshoes</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    .is-loading {
+        color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="list">
+            <h1>{{ reversedMessage }}</h1>
+            <span>{{message}}</span>
+            <ul>
+                <li v-for="list in lists" v-if="list.completed" v-text="list.desciption">
+                </li>
+                <li>{{newList}}</li>
+            </ul>
+            <input id="text" type="text" v-model="newList">
+            <button v-on:click="addList" :title="title">add List</button>
+        </div>
+
+        <div class="component">
+        	<my-component></my-component>
+        	<my-component></my-component>
+        	<my-component></my-component>
+        </div>
+
+
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+	    var app4 = new Vue({
+	        el: '.list',
+	        data: {
+	            message: 'Hello Ray!',
+	            title: 'Hover to show title',
+	            newList: '',
+	            lists: [
+	            	{desciption: 'Go to the market', completed: true},
+	            	{desciption: 'Go to the zoo', completed: false},
+	            	{desciption: 'Go to the swimming pool', completed: true},
+	            	{desciption: 'Go to the school', completed: true},
+	            	{desciption: 'Go to the office', completed: false},
+	            	{desciption: 'Go to the game center', completed: true},
+
+	            ],
+	        },
+
+	        methods: {
+	            addList() {
+	                this.lists.push(this.newList);
+	                this.newList = '';
+	            }
+	        },
+
+	        computed: {
+	            reversedMessage() {
+	                return this.message.split('').reverse().join('');
+	            }
+	        }
+	    })
+	    Vue.component('my-component', {
+	    	template: '<div>A custom Component</div>'
+	    })
+	    new Vue({
+	    	el: '.component'
+	    })
+    </script>
+</body>
+
+</html>
